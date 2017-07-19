@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>animateFrame</title>
+	<style type="text/css">
+	.fibers {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		height: 50%;
+	    display: block;
+	    margin: -300px 0 0 -137px;
+	    width: 275px;
+	    height: 600px;
+	    background: url(spectra-wire-sprite.png) no-repeat 0 0 transparent;	   
+	}
+	/*ok*/
+	</style>
+</head>
+<body>
+	<div class="fibers"></div>
+	<script src='TweenMax.min.js'></script> 
+	<script type="text/javascript">	
+		animateFrame();
+		function animateFrame () {
+			var st = 0;
+			var sp = 0;
+			TweenMax.set('.fibers',{ repeat:-1, backgroundPosition: '0px 0px',ease:Linear.easeNone,onComplete: function () {
+			    
+			    for (var y = 0; y < 5; y++) {
+			        for (var x = 0; x < 10; x++) {
+			            TweenMax.to('.fibers',0,{x:10,delay:st+=0.1,backgroundPosition: '-' + (275 * x) + 'px -' + (600 * y) + 'px',ease:Linear.easeNone,onStart: function () {
+			            	sp += 1;
+			            	if( sp == 50 ){
+			            		animateFrame();
+			            	}
+			            }});			       
+			        }
+			    };
+			}})
+		}
+	</script>
+</body>
+</html>
